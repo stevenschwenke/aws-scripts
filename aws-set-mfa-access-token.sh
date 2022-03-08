@@ -54,6 +54,42 @@ then
 	return
 fi
 
+echo "Checking if environment variables are set ..."
+echo
+if [ -z ${AWS_ACCESS_KEY_ID+x} ]; then 
+	echo "AWS_ACCESS_KEY_ID is unset";
+	AWS_ACCESS_KEY_ID_ALREADY_SET=false
+else 
+	echo "AWS_ACCESS_KEY_ID is set to '$AWS_ACCESS_KEY_ID'"; 
+	AWS_ACCESS_KEY_ID_ALREADY_SET=true
+fi
+
+if [ -z ${AWS_SECRET_ACCESS_KEY+x} ]; then 
+	echo "AWS_SECRET_ACCESS_KEY is unset"; 
+	AWS_SECRET_ACCESS_KEY_ALREADY_SET=false
+else 
+	echo "AWS_SECRET_ACCESS_KEY is set to '$AWS_SECRET_ACCESS_KEY'"; 
+	AWS_SECRET_ACCESS_KEY_ALREADY_SET=true
+fi
+
+if [ -z ${AWS_SESSION_TOKEN+x} ]; then 
+	echo "AWS_SESSION_TOKEN is unset"; 
+	AWS_SESSION_TOKEN_ALREADY_SET=false
+else 
+	echo "AWS_SESSION_TOKEN is set to '$AWS_SESSION_TOKEN'"; 
+	AWS_SESSION_TOKEN_ALREADY_SET=true
+fi
+
+echo
+
+if [ $AWS_ACCESS_KEY_ID_ALREADY_SET = true ] || [ $AWS_SECRET_ACCESS_KEY_ALREADY_SET = true ] || [ $AWS_SESSION_TOKEN_ALREADY_SET = true ]; then
+	echo "The already existing variables will be overriden. Continue?"
+	read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return
+else
+	echo "No existing variables set. Will continue ..."
+fi
+
+
 echo "Getting new MFA access token ..."
 CREDJSON="$(aws sts get-session-token --serial-number $1 --token-code $2)"
 
