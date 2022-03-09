@@ -42,4 +42,4 @@ echo "Removing AWS_SECRET_ACCESS_KEY from environment variables ..."
 unset AWS_SECRET_ACCESS_KEY
 echo "Removing AWS_SESSION_TOKEN from environment variables ..."
 unset AWS_SESSION_TOKEN
-
+echo "Done."
