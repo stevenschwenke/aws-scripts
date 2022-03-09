@@ -47,6 +47,8 @@ else
 	echo
 	echo "Executing 'env | grep AWS_PROFILE':"
 	env | grep AWS_PROFILE
+	echo
+	echo "You may also call 'aws sts get-caller-identity' to show your AWS account ID."
 	return
 fi
 
