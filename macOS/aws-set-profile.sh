@@ -22,7 +22,11 @@ while getopts ":hl" option; do
   case $option in
     h) # Display help
       help
-      exit 0
+      if is_sourced; then
+        return 0
+      else
+        exit 0
+      fi
       ;;
     l) # List profiles
       echo "Your AWS profiles:"
@@ -36,10 +40,16 @@ while getopts ":hl" option; do
       ;;
     *) # Parsing invalid arguments
       echo "Invalid argument, exiting."
-      exit 1
+      if is_sourced; then
+        return 1
+      else
+        exit 1
+      fi
       ;;
   esac
 done
+
+shift $((OPTIND - 1))
 
 if ! is_sourced; then
   echo "Please call this script source'd like this to make your changes permanent:"
@@ -52,7 +62,7 @@ else
   # Check if the profile name is provided
   if [ -z "$1" ]; then
     echo "Profile name is missing. Please provide a profile name as an argument."
-    exit 1
+    return 1
   fi
 
   echo "Setting profile with name $1:"
@@ -64,4 +74,3 @@ else
   echo "You may also call 'aws sts get-caller-identity' to show your AWS account ID."
   return
 fi
-exit 0
