@@ -13,19 +13,19 @@
 while getopts ":h" option; do
    case $option in
       h) # Display help
-         echo "This will unset the following environment variable:"
- 		 echo
-		 echo "	AWS_PROFILE"
-		 echo
-		 echo "To be able to change environment variables, this script has to be executed with 'source' like this:"
-		 echo "source ./aws-unset-profile.sh"
-		 if is_sourced
-		 then
-			return
-		 else
-			exit
-		 fi
-		 ;;
+        echo "This will unset the following environment variable:"
+        echo
+        echo "	AWS_PROFILE"
+        echo
+        echo "To be able to change environment variables, this script has to be executed with 'source' like this:"
+        echo "source ./aws-unset-profile.sh"
+        if is_sourced
+        then
+          return
+        else
+          exit
+        fi
+        ;;
    esac
 done
 
@@ -34,6 +34,8 @@ then
 	echo "You are not running this script as source."
 	echo "To make these changes permanent, call this script source'd like this:"
 	echo "source ./aws-unset-profile.sh"
+	echo "Or like this:"
+	echo ". ./aws-unset-profile.sh"
 	exit
 fi
 

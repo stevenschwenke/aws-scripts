@@ -22,17 +22,17 @@ while getopts ":h :l :s" option; do
       h) # Display help
          Help
          exit;;
-      l)
-   		echo "Your AWS profiles:"
-		echo
-		cat ~/.aws/credentials | grep "\[" | tail -n +2
+      l) # List profiles
+   		  echo "Your AWS profiles:"
+		    echo
+		    cat ~/.aws/credentials | grep "\[" | tail -n +2
         if is_sourced
-		then
-			return
-		else
-			exit
-		fi
-		;;
+		      then
+			    return
+		    else
+			    exit
+		    fi
+		    ;;
    esac
 done
 
@@ -40,6 +40,8 @@ if ! is_sourced
 then
 	echo "To make these changes permanent, call this script source'd like this:"
 	echo "source ./aws-set-profile.sh"
+	echo "Or like this:"
+	echo ". ./aws-set-profile.sh"
 	exit
 else
 	echo "Setting profile with name $1:"
