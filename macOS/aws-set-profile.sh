@@ -21,7 +21,8 @@ while getopts ":h :l :s" option; do
    case $option in
       h) # Display help
          Help
-         exit;;
+         exit 0
+         ;;
       l) # List profiles
    		  echo "Your AWS profiles:"
 		    echo
@@ -30,19 +31,24 @@ while getopts ":h :l :s" option; do
 		      then
 			    return
 		    else
-			    exit
+			    exit 0
 		    fi
+		    ;;
+		  *) # Parsing invalid arguments
+		    echo "Invalid argument, exiting."
+		    exit 1
 		    ;;
    esac
 done
 
 if ! is_sourced
 then
-	echo "To make these changes permanent, call this script source'd like this:"
+	echo "Please call this script source'd like this to make your changes permanent:"
 	echo "source ./aws-set-profile.sh"
 	echo "Or like this:"
 	echo ". ./aws-set-profile.sh"
-	exit
+	echo "The environment was not changed."
+	exit 0
 else
 	echo "Setting profile with name $1:"
 	export AWS_PROFILE=$1
@@ -53,6 +59,7 @@ else
 	echo "You may also call 'aws sts get-caller-identity' to show your AWS account ID."
 	return
 fi
+exit 0
 
 
 
