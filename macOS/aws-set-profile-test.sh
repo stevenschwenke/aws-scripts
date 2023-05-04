@@ -85,6 +85,21 @@ test_myscript "List profiles (with source)" \
 
               $ACTUAL_PROFILES"
 
+# TODO Should work even without source
+test_myscript "Invalid argument (without source)" \
+              "nosource" \
+              "-unknown" \
+              "Please call this script source'd like this to make your changes permanent:
+                                   source ./aws-set-profile.sh
+                                   Or like this:
+                                   . ./aws-set-profile.sh
+                                   The environment was not changed."
+
+test_myscript "Invalid argument (with source)" \
+              "source" \
+              "-unknown" \
+              "Invalid argument, exiting."
+
 test_myscript "Set profile (without source)" \
               "nosource" \
               "my_profile" \
