@@ -1,24 +1,16 @@
 #!/bin/zsh
 
 # Call this script like this:
-# ./script-tester.sh "description of test" "source" "SCRIPT-FILE" "input" "expected output"
+# ./script-tester.sh "description of test" "source" "script-file" "input" "expected output"
 
 # Function to test the output of aws-set-profile.sh
 
 description="$1"
-echo $description
 run_with_source="$2"
-echo $run_with_source
 script_file="$3"
-echo $script_file
 input="$4"
-echo $input
 expected_output="$5"
-echo $expected_output
 
-raw_actual_output=""
-
-raw_actual_output
 if [[ "$run_with_source" == "source" ]]; then
   raw_actual_output=$(source ./$script_file "$input")
 else
