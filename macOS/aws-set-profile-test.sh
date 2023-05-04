@@ -88,8 +88,8 @@ run_test "Set profile (with source)" \
               "my_profile" \
               "Setting profile with name my_profile:
 
-               Executing 'env | grep AWS_PROFILE':
-               AWS_PROFILE=my_profile
+               Executing 'printenv AWS_PROFILE':
+               my_profile
 
                You may also call 'aws sts get-caller-identity' to show your AWS account ID."
 

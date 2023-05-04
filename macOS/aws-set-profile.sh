@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # From https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced
 is_sourced() {
@@ -10,29 +10,27 @@ is_sourced() {
   return 1  # NOT sourced.
 }
 
-help() {
-  echo "This will help you set an AWS profile."
-  echo
-  echo "-l   list all your profiles"
-  echo "-h   display help"
-  echo "name set a profile with a name"
+display_help() {
+  printf "This will help you set an AWS profile.\n\n"
+  printf "-l   list all your profiles\n"
+  printf "-h   display help\n"
+  printf "name set a profile with a name\n"
 }
 
 aws_set_profile() {
   while getopts ":hl" option; do
     case $option in
       h) # Display help
-        help
+        display_help
         return 0
         ;;
       l) # List profiles
-        echo "Your AWS profiles:"
-        echo
+        printf "Your AWS profiles:\n\n"
         awk '/\[/ { if (NR > 1) print }' ~/.aws/credentials
         return
         ;;
       *) # Parsing invalid arguments
-        echo "Invalid argument, exiting."
+        printf "Invalid argument, exiting.\n"
         return 1
         ;;
     esac
@@ -42,24 +40,22 @@ aws_set_profile() {
 
   # Check if the profile name is provided
   if [ -z "$1" ]; then
-    echo "Profile name is missing. Please provide a profile name as an argument."
+    printf "Profile name is missing. Please provide a profile name as an argument.\n"
     return 1
   fi
 
   if is_sourced; then
-    echo "Setting profile with name $1:"
+    printf "Setting profile with name %s:\n" "$1"
     export AWS_PROFILE=$1
-    echo
-    echo "Executing 'env | grep AWS_PROFILE':"
-    env | grep AWS_PROFILE
-    echo
-    echo "You may also call 'aws sts get-caller-identity' to show your AWS account ID."
+    printf "\nExecuting 'printenv AWS_PROFILE':\n"
+    printenv AWS_PROFILE
+    printf "\nYou may also call 'aws sts get-caller-identity' to show your AWS account ID.\n"
   else
-    echo "Please call this script source'd like this to make your changes permanent:"
-    echo "source ./aws-set-profile.sh"
-    echo "Or like this:"
-    echo ". ./aws-set-profile.sh"
-    echo "The environment was not changed."
+    printf "Please call this script source'd like this to make your changes permanent:\n"
+    printf "source ./aws-set-profile.sh\n"
+    printf "Or like this:\n"
+    printf ". ./aws-set-profile.sh\n"
+    printf "The environment was not changed.\n"
     exit 0
   fi
 }
