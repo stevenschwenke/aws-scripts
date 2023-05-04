@@ -18,59 +18,50 @@ help() {
   echo "name set a profile with a name"
 }
 
-while getopts ":hl" option; do
-  case $option in
-    h) # Display help
-      help
-      if is_sourced; then
+aws_set_profile() {
+  while getopts ":hl" option; do
+    case $option in
+      h) # Display help
+        help
         return 0
-      else
-        exit 0
-      fi
-      ;;
-    l) # List profiles
-      echo "Your AWS profiles:"
-      echo
-      awk '/\[/ { if (NR > 1) print }' ~/.aws/credentials
-      if is_sourced; then
+        ;;
+      l) # List profiles
+        echo "Your AWS profiles:"
+        echo
+        awk '/\[/ { if (NR > 1) print }' ~/.aws/credentials
         return
-      else
-        exit 0
-      fi
-      ;;
-    *) # Parsing invalid arguments
-      echo "Invalid argument, exiting."
-      if is_sourced; then
+        ;;
+      *) # Parsing invalid arguments
+        echo "Invalid argument, exiting."
         return 1
-      else
-        exit 1
-      fi
-      ;;
-  esac
-done
+        ;;
+    esac
+  done
 
-shift $((OPTIND - 1))
+  shift $((OPTIND - 1))
 
-if ! is_sourced; then
-  echo "Please call this script source'd like this to make your changes permanent:"
-  echo "source ./aws-set-profile.sh"
-  echo "Or like this:"
-  echo ". ./aws-set-profile.sh"
-  echo "The environment was not changed."
-  exit 0
-else
   # Check if the profile name is provided
   if [ -z "$1" ]; then
     echo "Profile name is missing. Please provide a profile name as an argument."
     return 1
   fi
 
-  echo "Setting profile with name $1:"
-  export AWS_PROFILE=$1
-  echo
-  echo "Executing 'env | grep AWS_PROFILE':"
-  env | grep AWS_PROFILE
-  echo
-  echo "You may also call 'aws sts get-caller-identity' to show your AWS account ID."
-  return
-fi
+  if is_sourced; then
+    echo "Setting profile with name $1:"
+    export AWS_PROFILE=$1
+    echo
+    echo "Executing 'env | grep AWS_PROFILE':"
+    env | grep AWS_PROFILE
+    echo
+    echo "You may also call 'aws sts get-caller-identity' to show your AWS account ID."
+  else
+    echo "Please call this script source'd like this to make your changes permanent:"
+    echo "source ./aws-set-profile.sh"
+    echo "Or like this:"
+    echo ". ./aws-set-profile.sh"
+    echo "The environment was not changed."
+    exit 0
+  fi
+}
+
+aws_set_profile "$@"
