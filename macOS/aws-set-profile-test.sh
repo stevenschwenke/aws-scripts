@@ -8,20 +8,23 @@ ACTUAL_PROFILES=$1
 # Clear screen for better viewing of test results
 clear
 
+# Source script-tester.sh
+source script-tester.sh
+
 # Test cases
-./script-tester.sh "Missing parameter (without source)" \
+run_test "Missing parameter (without source)" \
               "nosource" \
               "aws-set-profile.sh" \
               "" \
               "Profile name is missing. Please provide a profile name as an argument."
 
-./script-tester.sh "Missing parameter (with source)" \
+run_test "Missing parameter (with source)" \
               "source" \
               "aws-set-profile.sh" \
               "" \
               "Profile name is missing. Please provide a profile name as an argument."
 
-./script-tester.sh "Show help (without source)" \
+run_test "Show help (without source)" \
               "nosource" \
               "aws-set-profile.sh" \
               "-h" \
@@ -31,7 +34,7 @@ clear
                -h   display help
                name set a profile with a name" \
 
-./script-tester.sh "Show help (with source)" \
+run_test "Show help (with source)" \
               "source" \
               "aws-set-profile.sh" \
               "-h" \
@@ -41,7 +44,7 @@ clear
                -h   display help
                name set a profile with a name"
 
-./script-tester.sh "List profiles (without source)" \
+run_test "List profiles (without source)" \
               "nosource" \
               "aws-set-profile.sh" \
               "-l" \
@@ -49,7 +52,7 @@ clear
 
               $ACTUAL_PROFILES"
 
-./script-tester.sh "List profiles (with source)" \
+run_test "List profiles (with source)" \
               "source" \
               "aws-set-profile.sh" \
               "-l" \
@@ -57,19 +60,19 @@ clear
 
               $ACTUAL_PROFILES"
 
-./script-tester.sh "Invalid argument (without source)" \
+run_test "Invalid argument (without source)" \
               "nosource" \
               "aws-set-profile.sh" \
               "-unknown" \
               "Invalid argument, exiting."
 
-./script-tester.sh "Invalid argument (with source)" \
+run_test "Invalid argument (with source)" \
               "source" \
               "aws-set-profile.sh" \
               "-unknown" \
               "Invalid argument, exiting."
 
-./script-tester.sh "Set profile (without source)" \
+run_test "Set profile (without source)" \
               "nosource" \
               "aws-set-profile.sh" \
               "my_profile" \
@@ -79,7 +82,7 @@ clear
                     . ./aws-set-profile.sh
                     The environment was not changed."
 
-./script-tester.sh "Set profile (with source)" \
+run_test "Set profile (with source)" \
               "source" \
               "aws-set-profile.sh" \
               "my_profile" \

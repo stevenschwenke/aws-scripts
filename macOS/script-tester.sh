@@ -1,33 +1,34 @@
 #!/bin/zsh
 
 # Call this script like this:
-# ./script-tester.sh "description of test" "source" "script-file" "input" "expected output"
+# run_test "description of test" "source" "script-file" "input" "expected output"
 
 # Function to test the output of aws-set-profile.sh
 
-description="$1"
-run_with_source="$2"
-script_file="$3"
-input="$4"
-expected_output="$5"
+function run_test() {
+  description="$1"
+  run_with_source="$2"
+  script_file="$3"
+  input="$4"
+  expected_output="$5"
 
-if [[ "$run_with_source" == "source" ]]; then
-  raw_actual_output=$(source ./$script_file "$input")
-else
-  raw_actual_output=$(./$script_file "$input")
-fi
+  if [[ "$run_with_source" == "source" ]]; then
+    raw_actual_output=$(source ./$script_file "$input")
+  else
+    raw_actual_output=$(./$script_file "$input")
+  fi
 
-raw_expected_output="$expected_output"
+  raw_expected_output="$expected_output"
 
-# Remove whitespaces from actual and expected outputs
-actual_output=$(echo "$raw_actual_output" | sed 's/[[:space:]]//g')
-expected_output=$(echo "$raw_expected_output" | sed 's/[[:space:]]//g')
+  # Remove whitespaces from actual and expected outputs
+  actual_output=$(echo "$raw_actual_output" | sed 's/[[:space:]]//g')
+  expected_output=$(echo "$raw_expected_output" | sed 's/[[:space:]]//g')
 
-if [[ "$actual_output" == "$expected_output" ]]; then
-  echo "PASS: $description"
-else
-  echo "FAIL: $description"
-  echo "Expected: $raw_expected_output"
-  echo "Actual  : $raw_actual_output"
-fi
-
+  if [[ "$actual_output" == "$expected_output" ]]; then
+    echo "PASS: $description"
+  else
+    echo "FAIL: $description"
+    echo "Expected: $raw_expected_output"
+    echo "Actual  : $raw_actual_output"
+  fi
+}
