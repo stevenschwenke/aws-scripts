@@ -1,9 +1,7 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Call this script like this:
 # run_test "description of test" "source" "script-file" "input" "expected output"
-
-# Function to test the output of aws-set-profile.sh
 
 function run_test() {
   description="$1"

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Call this script like this:
 # ./aws-set-profile-test.sh "[your_profile_1]\n[your_profile_2]\n[your_profile_3]"
