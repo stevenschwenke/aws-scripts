@@ -102,6 +102,11 @@ aws_set_mfa_access_token() {
     printf "Getting new MFA access token ...\n\n"
     CREDJSON="$(aws sts get-session-token --serial-number $1 --token-code $2)"
 
+    if [ $? -ne 0 ]; then
+      echo "Failed to retrieve session credentials. Please check your input and try again. Your AWS environment variables have not been altered."
+      return 1
+    fi
+
     ACCESSKEY="$(echo $CREDJSON | jq '.Credentials.AccessKeyId' | sed 's/"//g')"
     SECRETACESSKEY="$(echo $CREDJSON | jq '.Credentials.SecretAccessKey' | sed 's/"//g')"
     SESSIONTOKEN="$(echo $CREDJSON | jq '.Credentials.SessionToken' | sed 's/"//g')"
