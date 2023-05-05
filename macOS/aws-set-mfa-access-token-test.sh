@@ -102,26 +102,3 @@ run_test "Three instead of two parameters (with source)" \
               "Please provide two arguments:
                1. MFA_SERIAL_NUMBER
                2. TOKEN_CODE"
-
-
-#run_test "Set profile (without source)" \
-#              "nosource" \
-#              "aws-set-mfa-access-token.sh" \
-#              "my_profile" \
-#              "Please call this script source'd like this to make your changes permanent:
-#                    source ./aws-set-profile.sh
-#                    Or like this:
-#                    . ./aws-set-profile.sh
-#                    The environment was not changed."
-#
-#run_test "Set profile (with source)" \
-#              "source" \
-#              "aws-set-mfa-access-token.sh" \
-#              "my_profile" \
-#              "Setting profile with name my_profile:
-#
-#               Executing 'printenv AWS_PROFILE':
-#               my_profile
-#
-#               You may also call 'aws sts get-caller-identity' to show your AWS account ID."
-
