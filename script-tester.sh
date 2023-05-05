@@ -1,7 +1,16 @@
 #!/usr/bin/env zsh
 
-# Call this script like this:
-# run_test "description of test" "source" "script-file" "input" "expected output"
+# Description: Executes a given script file.
+# Usage:       ./script-tester.sh DESCRIPTION RUN_WITH_SOURCE SCRIPT_FILE INPUT EXPECTED_OUTPUT
+# Dependencies: none
+#
+# Example:
+# source script-tester.sh
+# run_test "Missing parameter (without source)" \
+#              "nosource" \
+#              "aws-set-profile.sh" \
+#              "" \
+#              "Profile name is missing. Please provide a profile name as an argument."
 
 function run_test() {
   description="$1"

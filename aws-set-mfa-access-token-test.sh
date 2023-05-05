@@ -1,7 +1,12 @@
 #!/usr/bin/env zsh
 
-# Call this script like this:
-# ./aws-set-mfa-access-token-test.sh arn:aws:iam::000000000042:mfa/youruser 424242
+# Description: Executes tests for aws-set-mfa-access-token.sh
+# Usage:       ./aws-set-mfa-access-token-test.sh MFA_SERIAL_NUMBER TOKEN_CODE
+# Dependencies: aws-set-mfa-access-token.sh
+#
+# Examples:
+#   ./aws-set-mfa-access-token-test.sh arn:aws:iam::000000000042:mfa/youruser 424242
+#
 
 ACTUAL_PROFILES=$1
 
@@ -25,11 +30,11 @@ run_test "Show help (without source)" \
 
                Usage:
 
-               aws-set-mfa-access-token MFA_SERIAL_NUMBER TOKEN_CODE
+               . ./aws-set-mfa-access-token.sh MFA_SERIAL_NUMBER TOKEN_CODE
 
                Example:
 
-               aws-set-mfa-access-token arn:aws:iam::000000000042:mfa/youruser 424242
+               . ./aws-set-mfa-access-token.sh arn:aws:iam::000000000042:mfa/youruser 424242
 
                This will cause every request to be send with this access token.
 
@@ -48,11 +53,11 @@ run_test "Show help (with source)" \
 
                Usage:
 
-               aws-set-mfa-access-token MFA_SERIAL_NUMBER TOKEN_CODE
+               . ./aws-set-mfa-access-token.sh MFA_SERIAL_NUMBER TOKEN_CODE
 
                Example:
 
-               aws-set-mfa-access-token arn:aws:iam::000000000042:mfa/youruser 424242
+               . ./aws-set-mfa-access-token.sh arn:aws:iam::000000000042:mfa/youruser 424242
 
                This will cause every request to be send with this access token.
 

@@ -1,7 +1,11 @@
 #!/usr/bin/env zsh
 
-# Call this script like this:
-# ./aws-unset-profile-test.sh
+# Description: Executes tests for aws-unset-profile-test.sh
+# Usage:       ./aws-unset-profile-test.sh
+# Dependencies: aws-unset-profile.sh
+#
+# Examples:
+#   ./aws-unset-profile-test.sh
 
 # Clear screen for better viewing of test results
 clear

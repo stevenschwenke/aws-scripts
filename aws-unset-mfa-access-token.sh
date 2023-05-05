@@ -1,5 +1,16 @@
 #!/usr/bin/env zsh
 
+# Description: Unsets the environment variables for AWS MFA.
+# Usage:       . ./aws-unset-mfa-access-token.sh
+# Dependencies: none
+#
+# Examples:
+#   ./aws-unset-mfa-access-token.sh -h
+#   . ./aws-unset-mfa-access-token
+#
+# Options:
+#   -h    Display help
+
 # From https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced
 is_sourced() {
   if [ -n "$ZSH_VERSION" ]; then

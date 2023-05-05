@@ -1,5 +1,16 @@
 #!/usr/bin/env zsh
 
+# Description: Sets AWS MFA access tokens requested from AWS as environment variables.
+# Usage:       . ./aws-set-mfa-access-token.sh MFA_SERIAL_NUMBER TOKEN_CODE
+# Dependencies: jq
+#
+# Examples:
+#   ./aws-set-mfa-access-token.sh -h
+#   . ./aws-set-mfa-access-token.sh arn:aws:iam::000000000042:mfa/youruser 424242
+#
+# Options:
+#   -h    Display help
+
 # jq is needed for parsing the JSON that includes the AWS credentials
 jq_missing() {
   if command -v jq >/dev/null 2>&1; then
@@ -23,9 +34,9 @@ display_help() {
   printf "	AWS_SECRET_ACCESS_KEY\n"
   printf "	AWS_SESSION_TOKEN\n\n"
   printf "Usage:\n\n"
-  printf "aws-set-mfa-access-token MFA_SERIAL_NUMBER TOKEN_CODE\n\n"
+  printf ". ./aws-set-mfa-access-token.sh MFA_SERIAL_NUMBER TOKEN_CODE\n\n"
   printf "Example:\n\n"
-  printf "aws-set-mfa-access-token arn:aws:iam::000000000042:mfa/youruser 424242\n\n"
+  printf ". ./aws-set-mfa-access-token.sh arn:aws:iam::000000000042:mfa/youruser 424242\n\n"
   printf "This will cause every request to be send with this access token.\n\n"
   printf "To be able to change environment variables, this script has to be executed with 'source' like this:\n"
   printf "source ./aws-set-mfa-access-token.sh\n"

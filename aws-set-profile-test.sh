@@ -1,7 +1,11 @@
 #!/usr/bin/env zsh
 
-# Call this script like this:
-# ./aws-set-profile-test.sh "[your_profile_1]\n[your_profile_2]\n[your_profile_3]"
+# Description: Executes tests for aws-set-profile-test.sh
+# Usage:       ./aws-set-profile-test.sh STRING_WITH_PROFILES
+# Dependencies: aws-set-profile.sh
+#
+# Examples:
+#   ./aws-set-profile-test.sh "[your_profile_1]\n[your_profile_2]\n[your_profile_3]"
 
 ACTUAL_PROFILES=$1
 

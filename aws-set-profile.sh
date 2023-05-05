@@ -1,5 +1,17 @@
 #!/usr/bin/env zsh
 
+# Description: Sets an AWS profile as environment variable.
+# Usage:       . ./aws-set-profile.sh PROFILE_NAME
+# Dependencies: none
+#
+# Examples:
+#   ./aws-set-profile.sh -h
+#   . ./aws-set-profile aws1
+#
+# Options:
+#   -h    Display help
+#   -l    List available profiles
+
 # From https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced
 is_sourced() {
   if [ -n "$ZSH_VERSION" ]; then
